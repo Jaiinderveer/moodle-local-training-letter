@@ -1,139 +1,122 @@
-
 <?php
 defined('MOODLE_INTERNAL') || die();
 
 function xmldb_local_training_letter_upgrade($oldversion) {
     global $DB;
 
-    if ($oldversion < 2026102702) {
-        $table = new xmldb_table('local_training_letter');
+    $dbman = $DB->get_manager();
+    $table = new xmldb_table('local_training_letter');
 
-        if (!$DB->get_manager()->table_exists($table)) {
-            $table->add_field(
-                'id',
-                XMLDB_TYPE_INTEGER,
-                '10',
-                null,
-                XMLDB_NOTNULL,
-                XMLDB_SEQUENCE
-            );
+    if ($oldversion < 2026103100) {
+        if (!$dbman->table_exists($table)) {
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('fullname', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('rollno', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('universityrollno', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('phone', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('email', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('course', XMLDB_TYPE_CHAR, '100', null, XMLDB_NOTNULL, null, 'B.Tech');
+            $table->add_field('branch', XMLDB_TYPE_CHAR, '100', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('semester', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('trainingtype', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, 'Software');
+            $table->add_field('duration', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, '6 Weeks');
+            $table->add_field('companyname', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('companyaddress', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL);
+            $table->add_field('companycontact', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('companyphone', XMLDB_TYPE_CHAR, '30', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('mentorname', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('joiningdate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('status', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, 'pending');
+            $table->add_field('decisionnote', XMLDB_TYPE_TEXT, null, null, false);
+            $table->add_field('decidedby', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('timedecided', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+            $dbman->create_table($table);
+        } else {
+            $fields = [
+                'userid' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+                'fullname' => [XMLDB_TYPE_CHAR, '255', XMLDB_NOTNULL, null, null],
+                'rollno' => [XMLDB_TYPE_CHAR, '50', XMLDB_NOTNULL, null, null],
+                'universityrollno' => [XMLDB_TYPE_CHAR, '50', XMLDB_NOTNULL, null, null],
+                'phone' => [XMLDB_TYPE_CHAR, '30', XMLDB_NOTNULL, null, null],
+                'email' => [XMLDB_TYPE_CHAR, '255', XMLDB_NOTNULL, null, null],
+                'course' => [XMLDB_TYPE_CHAR, '100', XMLDB_NOTNULL, null, 'B.Tech'],
+                'branch' => [XMLDB_TYPE_CHAR, '100', XMLDB_NOTNULL, null, null],
+                'semester' => [XMLDB_TYPE_CHAR, '30', XMLDB_NOTNULL, null, null],
+                'trainingtype' => [XMLDB_TYPE_CHAR, '30', XMLDB_NOTNULL, null, 'Software'],
+                'duration' => [XMLDB_TYPE_CHAR, '30', XMLDB_NOTNULL, null, '6 Weeks'],
+                'companyname' => [XMLDB_TYPE_CHAR, '255', XMLDB_NOTNULL, null, null],
+                'companyaddress' => [XMLDB_TYPE_TEXT, null, XMLDB_NOTNULL, null, null],
+                'companycontact' => [XMLDB_TYPE_CHAR, '255', XMLDB_NOTNULL, null, null],
+                'companyphone' => [XMLDB_TYPE_CHAR, '30', XMLDB_NOTNULL, null, null],
+                'mentorname' => [XMLDB_TYPE_CHAR, '255', XMLDB_NOTNULL, null, null],
+                'joiningdate' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+                'status' => [XMLDB_TYPE_CHAR, '20', XMLDB_NOTNULL, null, 'pending'],
+                'decisionnote' => [XMLDB_TYPE_TEXT, null, null, null, null],
+                'decidedby' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+                'timedecided' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+                'timecreated' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+                'timemodified' => [XMLDB_TYPE_INTEGER, '10', XMLDB_NOTNULL, null, '0'],
+            ];
 
-            $table->add_field(
-                'userid',
-                XMLDB_TYPE_INTEGER,
-                '10',
-                null,
-                XMLDB_NOTNULL,
-                null,
-                '0'
-            );
-
-            foreach ([
-                'fullname' => 255,
-                'email' => 255,
-                'companyname' => 255,
-                'companycontact' => 255,
-                'mentorname' => 255
-            ] as $name => $length) {
-                $table->add_field(
-                    $name,
-                    XMLDB_TYPE_CHAR,
-                    (string)$length,
-                    null,
-                    XMLDB_NOTNULL,
-                    null,
-                    ''
-                );
+            foreach ($fields as $name => [$type, $length, $notnull, $sequence, $default]) {
+                $field = new xmldb_field($name, $type, $length, null, $notnull, $sequence, $default);
+                if (!$dbman->field_exists($table, $field)) {
+                    $dbman->add_field($table, $field);
+                }
             }
-
-            foreach ([
-                'rollno' => 50,
-                'universityrollno' => 50,
-                'phone' => 30,
-                'companyphone' => 30,
-                'course' => 100,
-                'branch' => 100,
-                'semester' => 30,
-                'trainingtype' => 30,
-                'duration' => 30,
-                'status' => 20
-            ] as $name => $length) {
-                $default = ($name === 'status') ? 'pending' : '';
-
-                $table->add_field(
-                    $name,
-                    XMLDB_TYPE_CHAR,
-                    (string)$length,
-                    null,
-                    XMLDB_NOTNULL,
-                    null,
-                    $default
-                );
-            }
-
-            $table->add_field(
-                'companyaddress',
-                XMLDB_TYPE_TEXT,
-                null,
-                null,
-                XMLDB_NOTNULL
-            );
-
-            $table->add_field(
-                'decisionnote',
-                XMLDB_TYPE_TEXT,
-                null,
-                null,
-                false
-            );
-
-            foreach ([
-                'joiningdate',
-                'decidedby',
-                'timedecided',
-                'timecreated',
-                'timemodified'
-            ] as $name) {
-                $table->add_field(
-                    $name,
-                    XMLDB_TYPE_INTEGER,
-                    '10',
-                    null,
-                    XMLDB_NOTNULL,
-                    null,
-                    '0'
-                );
-            }
-
-            $table->add_key(
-                'primary',
-                XMLDB_KEY_PRIMARY,
-                ['id']
-            );
-
-            // Foreign key name changed to avoid the index-name collision.
-
-            $table->add_index(
-                'status_idx',
-                XMLDB_INDEX_NOTUNIQUE,
-                ['status']
-            );
-
-            $table->add_index(
-                'userid_idx',
-                XMLDB_INDEX_NOTUNIQUE,
-                ['userid']
-            );
-
-            $DB->get_manager()->create_table($table);
         }
 
-        upgrade_plugin_savepoint(
-            true,
-            2026102702,
-            'local',
-            'training_letter'
-        );
+        $useridkey = new xmldb_key('userid_fk', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+        if ($dbman->table_exists($table) && !$dbman->find_key_name($table, $useridkey)) {
+            $dbman->add_key($table, $useridkey);
+        }
+        $decidedbykey = new xmldb_key('decidedby_fk', XMLDB_KEY_FOREIGN, ['decidedby'], 'user', ['id']);
+        if ($dbman->table_exists($table) && !$dbman->find_key_name($table, $decidedbykey)) {
+            $dbman->add_key($table, $decidedbykey);
+        }
+
+        $statusindex = new xmldb_index('status_idx', XMLDB_INDEX_NOTUNIQUE, ['status']);
+        if ($dbman->table_exists($table) && !$dbman->index_exists($table, $statusindex)) {
+            $dbman->add_index($table, $statusindex);
+        }
+        $useridindex = new xmldb_index('userid_idx', XMLDB_INDEX_NOTUNIQUE, ['userid']);
+        if ($dbman->table_exists($table) && !$dbman->index_exists($table, $useridindex)) {
+            $dbman->add_index($table, $useridindex);
+        }
+
+        upgrade_plugin_savepoint(true, 2026103100, 'local', 'training_letter');
+    }
+
+    if ($oldversion < 2026103101) {
+        // Remove invalid empty-string defaults from required text fields.
+        $charfields = [
+            'fullname' => '255',
+            'rollno' => '50',
+            'universityrollno' => '50',
+            'phone' => '30',
+            'email' => '255',
+            'branch' => '100',
+            'semester' => '30',
+            'companyname' => '255',
+            'companycontact' => '255',
+            'companyphone' => '30',
+            'mentorname' => '255',
+        ];
+
+        if ($dbman->table_exists($table)) {
+            foreach ($charfields as $name => $length) {
+                $field = new xmldb_field($name, XMLDB_TYPE_CHAR, $length, null, XMLDB_NOTNULL, null, null);
+                if ($dbman->field_exists($table, $field)) {
+                    $dbman->change_field_default($table, $field);
+                }
+            }
+        }
+
+        upgrade_plugin_savepoint(true, 2026103101, 'local', 'training_letter');
     }
 
     return true;
