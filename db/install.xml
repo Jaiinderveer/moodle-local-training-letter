@@ -5,21 +5,21 @@
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
-                <FIELD NAME="fullname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="rollno" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="universityrollno" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="phone" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="email" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="fullname" TYPE="char" LENGTH="255" NOTNULL="true"/>
+                <FIELD NAME="rollno" TYPE="char" LENGTH="50" NOTNULL="true"/>
+                <FIELD NAME="universityrollno" TYPE="char" LENGTH="50" NOTNULL="true"/>
+                <FIELD NAME="phone" TYPE="char" LENGTH="30" NOTNULL="true"/>
+                <FIELD NAME="email" TYPE="char" LENGTH="255" NOTNULL="true"/>
                 <FIELD NAME="course" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT="B.Tech"/>
-                <FIELD NAME="branch" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="semester" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="branch" TYPE="char" LENGTH="100" NOTNULL="true"/>
+                <FIELD NAME="semester" TYPE="char" LENGTH="30" NOTNULL="true"/>
                 <FIELD NAME="trainingtype" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="Software"/>
                 <FIELD NAME="duration" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="6 Weeks"/>
-                <FIELD NAME="companyname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="companyname" TYPE="char" LENGTH="255" NOTNULL="true"/>
                 <FIELD NAME="companyaddress" TYPE="text" NOTNULL="true"/>
-                <FIELD NAME="companycontact" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="companyphone" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
-                <FIELD NAME="mentorname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="companycontact" TYPE="char" LENGTH="255" NOTNULL="true"/>
+                <FIELD NAME="companyphone" TYPE="char" LENGTH="30" NOTNULL="true"/>
+                <FIELD NAME="mentorname" TYPE="char" LENGTH="255" NOTNULL="true"/>
                 <FIELD NAME="joiningdate" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
                 <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending"/>
                 <FIELD NAME="decisionnote" TYPE="text" NOTNULL="false"/>
