@@ -41,7 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
     }
 
+    $decisionnote = optional_param('decisionnote', '', PARAM_TEXT);
     $request->status = ($decision === 'approve') ? 'approved' : 'rejected';
+    $request->decisionnote = trim($decisionnote);
     $request->decidedby = $USER->id;
     $request->timedecided = time();
     $request->timemodified = time();
@@ -454,6 +456,18 @@ echo html_writer::div(
                     ]);
 
                     $approveform .= html_writer::tag(
+                        'textarea',
+                        '',
+                        [
+                            'name' => 'decisionnote',
+                            'rows' => 2,
+                            'placeholder' => get_string('decisionnote', 'local_training_letter'),
+                            'class' => 'form-control form-control-sm',
+                            'maxlength' => 2000,
+                        ]
+                    );
+
+                    $approveform .= html_writer::tag(
                         'button',
                         get_string('approve', 'local_training_letter'),
                         [
@@ -487,6 +501,18 @@ echo html_writer::div(
                         'name' => 'decision',
                         'value' => 'reject',
                     ]);
+
+                    $rejectform .= html_writer::tag(
+                        'textarea',
+                        '',
+                        [
+                            'name' => 'decisionnote',
+                            'rows' => 2,
+                            'placeholder' => get_string('decisionnote', 'local_training_letter'),
+                            'class' => 'form-control form-control-sm',
+                            'maxlength' => 2000,
+                        ]
+                    );
 
                     $rejectform .= html_writer::tag(
                         'button',
