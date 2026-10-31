@@ -91,5 +91,33 @@ function xmldb_local_training_letter_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2026103100, 'local', 'training_letter');
     }
 
+    if ($oldversion < 2026103101) {
+        // Remove invalid empty-string defaults from required text fields.
+        $charfields = [
+            'fullname' => '255',
+            'rollno' => '50',
+            'universityrollno' => '50',
+            'phone' => '30',
+            'email' => '255',
+            'branch' => '100',
+            'semester' => '30',
+            'companyname' => '255',
+            'companycontact' => '255',
+            'companyphone' => '30',
+            'mentorname' => '255',
+        ];
+
+        if ($dbman->table_exists($table)) {
+            foreach ($charfields as $name => $length) {
+                $field = new xmldb_field($name, XMLDB_TYPE_CHAR, $length, null, XMLDB_NOTNULL, null, null);
+                if ($dbman->field_exists($table, $field)) {
+                    $dbman->change_field_default($table, $field);
+                }
+            }
+        }
+
+        upgrade_plugin_savepoint(true, 2026103101, 'local', 'training_letter');
+    }
+
     return true;
 }
