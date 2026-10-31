@@ -227,6 +227,7 @@ echo html_writer::div(
                 get_string('companyname', 'local_training_letter'),
                 get_string('date', 'local_training_letter'),
                 get_string('status', 'local_training_letter'),
+                get_string('decisionnote', 'local_training_letter'),
                 get_string('actions', 'local_training_letter')
             ];
 
@@ -273,6 +274,9 @@ echo html_writer::div(
                     format_string($request->companyname),
                     userdate($request->timecreated),
                     $statushtml,
+                    ($status === 'rejected' && trim((string)$request->decisionnote) !== '')
+                        ? nl2br(s($request->decisionnote))
+                        : '-',
                     $action
                 ];
             }
