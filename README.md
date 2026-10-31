@@ -1,3 +1,4 @@
+
 # GNDEC Training Letter Moodle local plugin
 Target Moodle 4.5.x. Copy this folder to `moodle/local/training_letter`, then visit Site administration > Notifications.
 Pages: `index.php`, `request.php`, `view.php`, `manage.php`, `letter.php?id=ID`.
