@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/training_letter/db" VERSION="20261027" COMMENT="GNDEC training requests">
+    <TABLES>
+        <TABLE NAME="local_training_letter" COMMENT="Training requests">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="fullname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="rollno" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="universityrollno" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="phone" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="email" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="course" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT="B.Tech"/>
+                <FIELD NAME="branch" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="semester" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="trainingtype" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="Software"/>
+                <FIELD NAME="duration" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT="6 Weeks"/>
+                <FIELD NAME="companyname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="companyaddress" TYPE="text" NOTNULL="true"/>
+                <FIELD NAME="companycontact" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="companyphone" TYPE="char" LENGTH="30" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="mentorname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
+                <FIELD NAME="joiningdate" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending"/>
+                <FIELD NAME="decisionnote" TYPE="text" NOTNULL="true"/>
+                <FIELD NAME="decidedby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="timedecided" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="status_idx" UNIQUE="false" FIELDS="status"/>
+                <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+            </INDEXES>
+        </TABLE>
+    </TABLES>
+</XMLDB>
