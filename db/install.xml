@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/training_letter/db" VERSION="20261027" COMMENT="GNDEC training requests">
+<XMLDB PATH="local/training_letter/db" VERSION="20261031" COMMENT="GNDEC training requests">
     <TABLES>
         <TABLE NAME="local_training_letter" COMMENT="Training requests">
             <FIELDS>
@@ -22,7 +22,7 @@
                 <FIELD NAME="mentorname" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
                 <FIELD NAME="joiningdate" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
                 <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending"/>
-                <FIELD NAME="decisionnote" TYPE="text" NOTNULL="true"/>
+                <FIELD NAME="decisionnote" TYPE="text" NOTNULL="false"/>
                 <FIELD NAME="decidedby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
                 <FIELD NAME="timedecided" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
                 <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
@@ -31,6 +31,7 @@
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
                 <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+                <KEY NAME="decidedby_fk" TYPE="foreign" FIELDS="decidedby" REFTABLE="user" REFFIELDS="id"/>
             </KEYS>
             <INDEXES>
                 <INDEX NAME="status_idx" UNIQUE="false" FIELDS="status"/>
