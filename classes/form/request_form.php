@@ -141,6 +141,36 @@ class request_form extends \moodleform {
             }
         }
 
+        // Validate select fields on the server; never trust only the browser options.
+        $allowedvalues = [
+            'course' => ['B.Tech', 'MBA', 'MCA'],
+            'trainingtype' => ['Software', 'Industrial'],
+            'duration' => ['6 Weeks', '6 Months'],
+        ];
+        foreach ($allowedvalues as $field => $allowed) {
+            if (!in_array((string)($data[$field] ?? ''), $allowed, true)) {
+                $errors[$field] = get_string('invaliddata', 'error');
+            }
+        }
+
+        // These course/type/duration combinations have matching letter templates.
+        $combination = [
+            (string)($data['course'] ?? ''),
+            (string)($data['trainingtype'] ?? ''),
+            (string)($data['duration'] ?? ''),
+        ];
+        $supportedcombinations = [
+            ['B.Tech', 'Industrial', '6 Weeks'],
+            ['B.Tech', 'Industrial', '6 Months'],
+            ['B.Tech', 'Software', '6 Weeks'],
+            ['MBA', 'Industrial', '6 Weeks'],
+            ['MCA', 'Industrial', '6 Months'],
+        ];
+        if (!in_array($combination, $supportedcombinations, true)) {
+            $errors['trainingtype'] = get_string('invaliddata', 'error');
+            $errors['duration'] = get_string('invaliddata', 'error');
+        }
+
         if (!empty($data['email']) && !validate_email($data['email'])) {
             $errors['email'] = get_string('invalidemail');
         }
